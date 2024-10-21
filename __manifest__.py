@@ -1,17 +1,16 @@
 # -*- coding: utf-8 -*-
 {
-    'name': "my_module",
+    'name': "adaptaciones_FMF",
 
     'summary': """
-        Short (1 phrase/line) summary of the module's purpose, used as
-        subtitle on modules listing or apps.openerp.com""",
+        Cambios hechos para adaptar al funcionamiento de la empresa""",
 
     'description': """
-        Long description of module's purpose
+        Cambios hechos para adaptar al funcionamiento de la empresa
     """,
 
-    'author': "My Company",
-    'website': "http://www.yourcompany.com",
+    'author': "OutsourceArg",
+    'website': "http://www.outsourcearg.com",
 
     # Categories can be used to filter modules in modules listing
     # Check https://github.com/odoo/odoo/blob/master/odoo/addons/base/module/module_data.xml
@@ -20,7 +19,7 @@
     'version': '0.1',
 
     # any module necessary for this one to work correctly
-    'depends': ['sale'],
+    'depends': ['sale','stock','account.move'],
 
     # always loaded
     'data': [
@@ -28,7 +27,4 @@
         'views/views.xml',
     ],
     # only loaded in demonstration mode
-    'demo': [
-        'demo/demo.xml',
-    ],
 }

@@ -7,7 +7,7 @@ class SaleOrderOverride(models.Model):
     
     buy_note = fields.Char('Nota de compra')
 
-    point_of_sale = fields.Selection(selection=[('6','6')('7','7')])
+    point_of_sale = fields.Selection(selection=[('6','6'),('7','7')])
     
     def action_confirm(self):
         # Llama al comportamiento estándar de confirmar la orden de venta
@@ -16,13 +16,31 @@ class SaleOrderOverride(models.Model):
         # Itera sobre los albaranes relacionados a esta orden
         for picking in self.picking_ids:
             picking.buy_note = self.buy_note  # Copia el valor de buy_note
+
         return res
+        
+    def _prepare_invoice(self):
+        """
+        Sobreescribimos este método para copiar el campo buy_note a la factura.
+        """
+        invoice_vals = super(SaleOrderOverride, self)._prepare_invoice()
+        
+        # Copia el valor de buy_note a la factura
+        invoice_vals['buy_note'] = self.buy_note
+        
+        return invoice_vals
 
 class StockPicking(models.Model):
     _inherit = 'stock.picking'
     
-    buy_note = fields.Char('Nota de compra')
-    
+    buy_note = fields.Char('Nota de compra',readonly=True)
+
+
+class AccountMove(models.Model):
+    _inherit = 'account.move'
+
+    buy_note = fields.Char('Nota de compra',readonly=True)
+
     
 
     
